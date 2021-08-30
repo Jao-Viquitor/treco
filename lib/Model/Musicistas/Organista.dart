@@ -15,4 +15,14 @@ class Organista{
     required this.telefone
   });
 
+  @override
+  String toString() {
+
+    String str = "";
+    for(int i = 0; i < comum.length; i++){
+      str += str + "; \n";
+    }
+    return str;
+
+  }
 }

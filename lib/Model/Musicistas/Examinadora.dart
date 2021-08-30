@@ -8,5 +8,4 @@ class Examinadora extends Organista{
       : super(id, nome: nome, comum: comum, nivel: nivel, batismo: batismo, telefone: telefone);
 
 
-
 }

@@ -1,13 +1,19 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:treco/Controller/Provider/Organistas.dart';
 import 'package:treco/Controller/Provider/Rodizios.dart';
-import 'package:treco/View/Componentes/RodiziosTile.dart';
+import 'package:treco/Model/Musicistas/Organista.dart';
+
+import '../Componentes/OrganistasTile.dart';
+import '../Componentes/RodiziosTile.dart';
 
 class HomeRodizio extends StatefulWidget {
 
+  HomeRodizio(this.args);
+  final Organista args;
+
   @override
-  _HomeRodizio createState() => _HomeRodizio();
+  _HomeRodizio createState() => _HomeRodizio(args);
 
 }
 
@@ -15,17 +21,21 @@ class _HomeRodizio extends State<HomeRodizio>{
 
   int _indiceAtual = 0;
 
+  _HomeRodizio(this.args);
+  final Organista args;
+
   @override
   Widget build(BuildContext context) {
     final RodiziosProvider rodizios = Provider.of(context);
+    final OrganistaProvider organistas =  Provider.of(context);
     final List<Widget> _telas = [
       paginaRodizio(rodizios),
-      paginaPerfil(),
+      paginaPerfil(organistas),
     ];
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.deepPurpleAccent,
-          title: Text("Lista De Rodízios"),
+          title: Text("${args.nome}, Lista De Rodízios"),
           centerTitle: true,
         ),
       body: _telas[_indiceAtual],
@@ -53,8 +63,11 @@ class _HomeRodizio extends State<HomeRodizio>{
     );
   }
 
-  paginaPerfil() {
-    return Text("Seu nome vai aqui");
+  paginaPerfil(OrganistaProvider organistas) {
+    return ListView.builder(
+      itemCount: organistas.count,
+      itemBuilder: (context, i) => OrganistasTile(organistas.byIndex(i)),
+    );
   }
 
   void onTabTapped(int index){

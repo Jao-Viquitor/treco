@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:treco/Controller/Provider/Organistas.dart';
 import 'package:treco/Controller/Provider/Rodizios.dart';
+import 'package:treco/Model/Musicistas/Organista.dart';
 import 'Controller/routes/Rotas.dart';
+import 'Home.dart';
 import 'View/ViewOganista/HomeRodizio.dart';
 import 'package:provider/provider.dart';
 
@@ -16,15 +19,17 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => RodiziosProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => OrganistaProvider(),
+        ),
       ],
       child: MaterialApp(
-        title: 'CEBOLA',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: HomeRodizio(),
+        home: Home(),
         routes: {
-          Rotas.HOME_RODIZIO: (_) => HomeRodizio(),
+
         },
       ),
     );
