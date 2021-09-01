@@ -5,6 +5,7 @@ import 'package:treco/Controller/Provider/Organistas.dart';
 import 'package:treco/Controller/Provider/Rodizios.dart';
 import 'package:treco/Controller/routes/Rotas.dart';
 import 'package:treco/Model/Musicistas/Organista.dart';
+import 'package:treco/View/Componentes/CadastrarRodizio.dart';
 import 'package:treco/View/Componentes/OrganistasTile.dart';
 import 'package:treco/View/Componentes/RodiziosTile.dart';
 
@@ -34,7 +35,7 @@ class _HomeOrganista extends State<HomeOrganista> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurpleAccent,
-        title: Text("${args.nome}, Lista De Rodízios"),
+        title: Text("${args.nome}, Lista De Ensaios"),
         centerTitle: true,
       ),
       body: _telas[_indiceAtual],
@@ -44,11 +45,11 @@ class _HomeOrganista extends State<HomeOrganista> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.account_balance),
-            label: "Rodízios",
+            label: "Ensaios",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.view_week),
-            label: "Organistas",
+            label: "Músicos",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
@@ -69,11 +70,16 @@ class _HomeOrganista extends State<HomeOrganista> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Container(
-            child: FloatingActionButton.extended(
-              onPressed: () {},
-              icon: Icon(Icons.add),
-              label: Text("Novo Rodízio"),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Container(
+              child: FloatingActionButton.extended(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => CadastrarRodizio()));
+                },
+                icon: Icon(Icons.add),
+                label: Text("Novo Ensaio"),
+              ),
             ),
           ),
         ],
@@ -91,15 +97,18 @@ class _HomeOrganista extends State<HomeOrganista> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          Container(
-            child: FloatingActionButton.extended(
-              onPressed: () {
-                Navigator.of(context).pushNamed(
-                    Rotas.ORGANISTA_FORM
-                );
-              },
-              icon: Icon(Icons.add),
-              label: Text("Nova organista"),
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Container(
+              child: FloatingActionButton.extended(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(
+                      Rotas.ORGANISTA_FORM
+                  );
+                },
+                icon: Icon(Icons.add),
+                label: Text("Novo Músico"),
+              ),
             ),
           ),
         ],

@@ -16,38 +16,33 @@ class _CadastrarOrganistaState extends State<CadastrarOrganista> {
   late String nivel;
   late String batismo;
   List itens = [
-    "Todas",
-    "Central",
-    "Santo Inácio",
-    "Proficar",
-    "Imbaá",
+    "Todos",
+    "Olimpo",
+    "Valhala",
+    "Jade",
+    "Takam-No-Hara",
   ];
-  List apta = ["Iniciante", "Médio", "Oficializada"];
+  List apta = ["Iniciante", "Médio", "Oficializado"];
   List dois = ["Sim", "Não"];
   late final String nome;
   late final String telefone;
-  final _form = GlobalKey<FormState>();
 
   TextEditingController name = TextEditingController();
   TextEditingController phone = TextEditingController();
-
-  final Map<String, String> _formData = {};
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Cadastrar nova organista"),
+        title: Text("Cadastrar novo Músico"),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(25),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Form(
-              key: _form,
-                child: Column(
-                  children: [
+            Column(
+              children: [
                 //Nome
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
@@ -58,7 +53,7 @@ class _CadastrarOrganistaState extends State<CadastrarOrganista> {
                     },
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
-                      labelText: "Nome da Organista",
+                      labelText: "Nome do Músico",
                       border: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.deepPurple)),
                       labelStyle: TextStyle(color: Colors.deepPurpleAccent),
@@ -68,13 +63,12 @@ class _CadastrarOrganistaState extends State<CadastrarOrganista> {
                           borderSide: BorderSide(color: Colors.deepPurple)),
                     ),
                     validator: (name) {
-                      if(name == null || name.isEmpty){
+                      if (name == null || name.isEmpty) {
                         return "Nome inválido";
                       }
                       return null;
                     },
-
-                    onSaved: (name) => _formData['nome'] = name!,
+                    onSaved: (name) => nome = name!.toString(),
                   ),
                 ),
                 //telefone
@@ -97,16 +91,19 @@ class _CadastrarOrganistaState extends State<CadastrarOrganista> {
                           borderSide: BorderSide(color: Colors.deepPurple)),
                     ),
                     validator: (phone) {
-                      if(phone == null || phone.isEmpty && phone.length < 11){
+                      if (phone == null || phone.isEmpty && phone.length < 11) {
                         return "Telefone inválido";
                       }
                       return null;
                     },
-                      onSaved: (phone) => _formData['telefone'] = phone!,
+                    onSaved: (phone) => telefone = phone!.toString(),
                   ),
                 ),
                 //Comum
-                Text("Comum", style: TextStyle(fontSize: 16, color: Colors.deepPurple),),
+                Text(
+                  "Comum",
+                  style: TextStyle(fontSize: 16, color: Colors.deepPurple),
+                ),
                 Container(
                   child: DropdownButton(
                     hint: Text("Escolha uma opção: "),
@@ -147,7 +144,10 @@ class _CadastrarOrganistaState extends State<CadastrarOrganista> {
                   ),
                 ),
                 //Nível
-                Text("Nível", style: TextStyle(fontSize: 16, color: Colors.deepPurple),),
+                Text(
+                  "Nível",
+                  style: TextStyle(fontSize: 16, color: Colors.deepPurple),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Container(
@@ -171,7 +171,10 @@ class _CadastrarOrganistaState extends State<CadastrarOrganista> {
                   ),
                 ),
                 //batismo
-                Text("Apta", style: TextStyle(fontSize: 16, color: Colors.deepPurple),),
+                Text(
+                  "Apta",
+                  style: TextStyle(fontSize: 16, color: Colors.deepPurple),
+                ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: Container(
@@ -195,20 +198,20 @@ class _CadastrarOrganistaState extends State<CadastrarOrganista> {
                   ),
                 ),
               ],
-            )),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.center,
+
               children: [
                 ElevatedButton(
                     onPressed: () {
-                      final isValid = _form.currentState!.validate();
-
-                      if(isValid) {
-                        _form.currentState!.save();
-                        Provider.of<OrganistaProvider>(context).adicionaNovo(nome, nivel, [comum1, comum2], batismo, telefone);
-                        Navigator.of(context).pop();
-                      }
+                      Provider.of<OrganistaProvider>(context).adicionaNovo(
+                          nome.toString(),
+                          nivel.toString(),
+                          [comum1.toString(), comum2.toString()],
+                          batismo.toString(),
+                          telefone.toString());
+                      Navigator.of(context).pop();
                     },
                     child: const Text("Confirmar"),
                     style: ElevatedButton.styleFrom(
@@ -231,6 +234,7 @@ class _CadastrarOrganistaState extends State<CadastrarOrganista> {
           ],
         ),
       ),
+      resizeToAvoidBottomInset: false,
     );
   }
 

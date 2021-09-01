@@ -12,7 +12,7 @@ class Rodizio{
     required this.nome,
     required this.local,
     required this.data,
-    required this.organista
+    required this.organista,
   });
 
 }

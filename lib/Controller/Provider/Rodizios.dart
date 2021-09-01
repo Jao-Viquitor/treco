@@ -53,6 +53,19 @@ class RodiziosProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void adicionarNovo(String categoria, String nome, String local, String data, List<String> organista){
+    final id = Random().nextDouble().toString();
+    _itens.putIfAbsent(
+        id,
+            () => Rodizio(id,
+            categoria: categoria,
+            nome: nome,
+            local: local,
+            data: data,
+            organista: organista));
+    notifyListeners();
+  }
+
   void remove(Rodizio tocar) {
     if (tocar != null && tocar.id != null) {
       _itens.remove(tocar.id);

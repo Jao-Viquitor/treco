@@ -18,9 +18,7 @@ class OrganistasTile extends StatelessWidget {
           subtitle: Text(tocar.nivel + "\n" + tocar.comum.toString()),
           isThreeLine: true,
           onTap: () => {
-          Navigator.of(context).pushNamed(
-            Rotas.ORGANISTA_FORM, arguments: tocar
-          ),
+          _showMyDialog(tocar, context)
           },
         ),
     );
