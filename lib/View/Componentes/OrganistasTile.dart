@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treco/Controller/routes/Rotas.dart';
 import 'package:treco/Model/Musicistas/Organista.dart';
 
 class OrganistasTile extends StatelessWidget {
@@ -17,9 +18,9 @@ class OrganistasTile extends StatelessWidget {
           subtitle: Text(tocar.nivel + "\n" + tocar.comum.toString()),
           isThreeLine: true,
           onTap: () => {
-            AlertDialog(
-              content: _showMyDialog(tocar, context),
-            ),
+          Navigator.of(context).pushNamed(
+            Rotas.ORGANISTA_FORM, arguments: tocar
+          ),
           },
         ),
     );

@@ -36,15 +36,20 @@ class OrganistaProvider with ChangeNotifier {
           ));
     } else {
       //Se nulo, adiciona novo
-      final id = Random().nextDouble().toString();
-      _itens.putIfAbsent(id, () => Organista(id,
-        nome: tocar.nome,
-        nivel: tocar.nivel,
-        comum: tocar.comum,
-        batismo: tocar.batismo,
-        telefone: tocar.telefone,
-      ));
+      adicionaNovo(tocar.nome, tocar.nivel, tocar.comum, tocar.batismo, tocar.telefone);
     }
+    notifyListeners();
+  }
+
+  void adicionaNovo(String nome, String nivel, List<String> comum, String batismo, String telefone){
+    final id = Random().nextDouble().toString();
+    _itens.putIfAbsent(id, () => Organista(id,
+      nome: nome,
+      nivel: nivel,
+      comum: comum,
+      batismo: batismo,
+      telefone: telefone,
+    ));
     notifyListeners();
   }
 

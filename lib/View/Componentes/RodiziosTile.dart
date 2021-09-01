@@ -39,6 +39,7 @@ class RodiziosTile extends StatelessWidget {
               children: [
                 Text(tocar.data),
                 Text(tocar.local),
+                Text(tocar.organista.toString()),
               ],
             ),
           ),

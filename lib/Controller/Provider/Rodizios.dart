@@ -36,7 +36,8 @@ class RodiziosProvider with ChangeNotifier {
               categoria: tocar.categoria,
               nome: tocar.nome,
               local: tocar.local,
-              data: tocar.data,));
+              data: tocar.data,
+              organista: tocar.organista));
     } else {
       //Se nulo, adiciona novo
       final id = Random().nextDouble().toString();
@@ -46,7 +47,8 @@ class RodiziosProvider with ChangeNotifier {
               categoria: tocar.categoria,
               nome: tocar.nome,
               local: tocar.local,
-              data: tocar.data,));
+              data: tocar.data,
+              organista: tocar.organista));
     }
     notifyListeners();
   }
