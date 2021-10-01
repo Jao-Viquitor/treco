@@ -75,7 +75,7 @@ class _HomeOrganista extends State<HomeOrganista> {
             child: Container(
               child: FloatingActionButton.extended(
                 onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => CadastrarRodizio()));
+
                 },
                 icon: Icon(Icons.add),
                 label: Text("Novo Ensaio"),
