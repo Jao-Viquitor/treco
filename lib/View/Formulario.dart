@@ -10,9 +10,35 @@ import 'ViewExaminadora/HomeOrganista.dart';
 import 'ViewOganista/HomeRodizio.dart';
 
 
+class NFormulario extends StatelessWidget {
+
+  StreamController _dataStream = StreamController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Center(
+        child: Form(
+          child: StreamBuilder(
+              stream: _dataStream.stream,
+              initialData: "Logando",
+              builder: (context, snapshot){
+                if(snapshot.data == "Login"){
+                  return Indisponivel(_dataStream);
+                }
+                  return Formulario(_dataStream);
+              }
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class Formulario extends StatelessWidget {
+
+  late StreamController data;
   Formulario(this.data);
-  StreamController data;
   late String codigo;
   late String senha;
   TextEditingController cod = TextEditingController();
@@ -72,14 +98,15 @@ class Formulario extends StatelessWidget {
                 ), SizedBox(height: 35,),
                 ElevatedButton(
                     onPressed: () async {
-                      data.add("Logando");
-                      if(organistas.containsIdNome(codigo)){
-                        Organista arg = organistas.containsOrg(codigo);
-                        if(arg is Examinadora){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeOrganista(arg)));
-                        } else if (arg is Organista){
-                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomeRodizio(arg)));
-                        }
+                      Organista arg = organistas.containsOrg(codigo);
+                      if (arg is Examinadora) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => HomeOrganista(arg)));
+                      } else if (arg is Organista) {
+                        data.add("Login");
+                        await Future.delayed(Duration(seconds: 3));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => HomeRodizio(arg)));
                       }
                     },
                     child: const Text("Entrar"),
@@ -92,3 +119,27 @@ class Formulario extends StatelessWidget {
         ),),);
   }
 }
+
+class Indisponivel extends StatelessWidget {
+
+  StreamController data;
+  Indisponivel(this.data);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Container(
+        decoration: BoxDecoration(
+        image: DecorationImage(
+        image: NetworkImage("https://wallpapercave.com/wp/wp5129072.jpg"),
+    fit: BoxFit.cover,
+    ),
+    ), padding: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 20.0),
+        child: Center(
+          child: Text("Página Indísponível"),
+        ),
+      )
+    );
+  }
+}
+

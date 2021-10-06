@@ -18,8 +18,6 @@ class Home extends StatefulWidget {
 
 class _homeState extends State<Home> {
 
-  StreamController _dataStream = StreamController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,46 +29,9 @@ class _homeState extends State<Home> {
         )),
         padding: EdgeInsets.fromLTRB(30.0, 20.0, 30.0, 20.0),
         child: Center(
-          child: Form(
-            child: StreamBuilder(
-              stream: _dataStream.stream,
-              initialData: "Login",
-              builder: (context, snapshot){
-                if(snapshot.data == "Login"){
-                    return Formulario(_dataStream);
-                } else if (snapshot.data != "Login"){
-                  return AlertDialog(
-                        elevation: 12.0,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                        title: Text("Deu erro", textAlign: TextAlign.center, ),
-                        content: SingleChildScrollView(
-                          child: ListBody(
-                            children: [
-                              Text("Alguma coisa deu errada")
-                            ],
-                          ),
-                        ),
-                        actions: [
-                          ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text("Fechar"),
-                              style: ElevatedButton.styleFrom(
-                                  primary: Colors.deepPurpleAccent,
-                                  shadowColor: Colors.deepPurple,
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16))
-                              )
-                          )
-                        ],
-                      );
-                }
-                return CircularProgressIndicator();
-              }
-            ),
-          ),
-        ),
+          child: NFormulario(),
       ),
+    ),
     );
   }
 
